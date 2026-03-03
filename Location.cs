@@ -56,12 +56,6 @@ public class Location
             Console.WriteLine($"W. {LocationToWest.Location_name}");
         }
 
-        // Same but with ternary operators could not get working quickly.
-        //LocationToNorth != null ? Console.WriteLine($"N. {LocationToNorth.Location_name}"): 
-        //LocationToEast != null ? Console.WriteLine($"E. {LocationToEast.Location_name}"):
-        //LocationToSouth != null ? Console.WriteLine($"S. {LocationToSouth.Location_name}"):
-        //LocationToWest != null ? Console.WriteLine($"W. {LocationToWest.Location_name}"): 
-
         string? movedirection = Console.ReadLine();
         if (!string.IsNullOrWhiteSpace(movedirection))
         {
