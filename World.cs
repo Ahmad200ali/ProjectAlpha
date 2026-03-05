@@ -65,7 +65,9 @@ public static class World
             new Quest(
                 QUEST_ID_CLEAR_ALCHEMIST_GARDEN,
                 "Clear the alchemist's garden",
-                "Kill rats in the alchemist's garden ");
+                "Kill rats in the alchemist's garden ",
+                LOCATION_ID_ALCHEMISTS_GARDEN,
+                MonsterByID(MONSTER_ID_RAT));
 
 
 
@@ -73,14 +75,18 @@ public static class World
             new Quest(
                 QUEST_ID_CLEAR_FARMERS_FIELD,
                 "Clear the farmer's field",
-                "Kill snakes in the farmer's field");
+                "Kill snakes in the farmer's field",
+                LOCATION_ID_FARM_FIELD,
+                MonsterByID(MONSTER_ID_SNAKE));
 
 
         Quest clearSpidersForest =
                     new Quest(
                         QUEST_ID_COLLECT_SPIDER_SILK,
                         "Collect spider silk",
-                        "Kill spiders in the spider forest");
+                        "Kill spiders in the spider forest",
+                        LOCATION_ID_SPIDER_FIELD,
+                        MonsterByID(MONSTER_ID_GIANT_SPIDER));
 
 
         Quests.Add(clearAlchemistGarden);
@@ -170,7 +176,7 @@ public static class World
     {
         foreach (Weapon item in Weapons)
         {
-            if (item.ID == id)
+            if (item.Id == id)
             {
                 return item;
             }
