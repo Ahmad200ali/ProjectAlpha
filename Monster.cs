@@ -25,14 +25,12 @@ public class Monster
 
         if(choice is "1" || choice is "attack")
         {
-            attack();
+            playerAttack();
         }
         else if(choice is "2" || choice is "flee")
         {
             flee();
         }
-
-        //add logic where the monster attacks the player
     }
 
     public void flee()
@@ -40,9 +38,10 @@ public class Monster
         Console.WriteLine($"You flee the {Name}");
     }
 
-    public void attack()
+    public void playerAttack()
     {
-        //do damage of player weapon to monster
+        int weapon_damage = 5; //TODO: do damage of player weapon to monster
+        Current_health -= weapon_damage;
         Console.WriteLine($"The monster now has {Current_health}");
         if(Max_health < 1)
         {
@@ -50,13 +49,30 @@ public class Monster
         }
         else
         {
-            fight();
+            monsterAttack();
         }
+    }
+
+    public void monsterAttack()
+    {
+        int player_health = 20; //TODO: use player class for health
+        player_health -= Damage;
+        if (player_health > 0)
+        {    
+            Console.WriteLine($"The monster hits you and deals {Damage} damage! You now have {player_health} health.");
+            fight();        
+        }
+        else
+        {
+            Console.WriteLine($"The monster hits you and deals {Damage} damage! You have no health left. You are dead.");
+            //TODO: add player death
+        }
+
     }
 
     public void death()
     {
         Console.WriteLine($"you defeat the {Name}");
-        //somehow trigger quest kill counter
+        //TODO: trigger quest kill counter
     }
 }
