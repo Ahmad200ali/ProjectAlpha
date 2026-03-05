@@ -46,7 +46,7 @@ public class Quest
         Console.WriteLine($"Your goal: Kill {RequiredKillCount} {monsterTarget.Name}(s)");
         Console.WriteLine($"Location: {Player.CurrentLocation.Location_name}\n");
 
-        // Vecht totdat je RequiredKillCount monsters hebt verslagen of speler dood gaat
+        
         while (KillCount < RequiredKillCount && player.IsAlive())
         {
             // Maak een nieuw monster aan voor elke gevecht (reset health)
@@ -60,15 +60,14 @@ public class Quest
 
             Console.WriteLine($"\nA wild {enemy.Name} appears!");
             
-            // Start gevecht met het monster
-            bool playerWon = FightMonster(player, enemy);
+           
+            bool playerWon = true;
 
             if (playerWon)
             {
                 KillCount++;
                 Console.WriteLine($"\n[{enemy.Name} killed: {KillCount}/{RequiredKillCount}]");
                 
-                // Check of speler health heeft recovery nodig tussen gevechten
                 if (player.CurrentHitPoints < player.MaximumHitPoints / 2)
                 {
                     Console.WriteLine($"Warning: You have {player.CurrentHitPoints} HP remaining!");
@@ -76,7 +75,6 @@ public class Quest
             }
             else
             {
-                // Speler is gevlucht of verloren
                 Console.WriteLine("\nQuest paused. You can try again when you're stronger.");
                 break;
             }
@@ -90,54 +88,6 @@ public class Quest
         {
             Console.WriteLine("\nQuest not completed. You need more kills.");
         }
-    }
-
-    private bool FightMonster(Player player, Monster enemy)
-    {
-        while (enemy.Current_health > 0 && player.IsAlive())
-        {
-            Console.WriteLine($"\n{player.Name}: {player.CurrentHitPoints} HP | {enemy.Name}: {enemy.Current_health} HP");
-            Console.WriteLine("Choose action:");
-            Console.WriteLine("1. Attack");
-            Console.WriteLine("2. Flee");
-            
-            string? choice = Console.ReadLine();
-
-            if (choice == "1" || choice?.ToLower() == "attack")
-            {
-                // Speler valt aan
-                int damage = player.CurrentWeapon.MaximumDamage;
-                enemy.Current_health -= damage;
-                Console.WriteLine($"You attack with your {player.CurrentWeapon.Name} for {damage} damage!");
-
-                if (enemy.Current_health <= 0)
-                {
-                    Console.WriteLine($"You defeated the {enemy.Name}!");
-                    return true;
-                }
-
-                // Monster valt aan
-                player.TakeDamage(enemy.Damage);
-                Console.WriteLine($"The {enemy.Name} attacks you for {enemy.Damage} damage!");
-            }
-            else if (choice == "2" || choice?.ToLower() == "flee")
-            {
-                Console.WriteLine($"You fled from the {enemy.Name}.");
-                return false;
-            }
-            else
-            {
-                Console.WriteLine("Invalid choice. Try again.");
-            }
-        }
-
-        if (!player.IsAlive())
-        {
-            Console.WriteLine("You were defeated! Game Over.");
-            return false;
-        }
-
-        return true;
     }
 
     public void CompleteQuest(Player player)
