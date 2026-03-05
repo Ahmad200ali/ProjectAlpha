@@ -4,17 +4,17 @@ public class Player
     public int CurrentHitPoints;
     public int MaximumHitPoints;
 
-    //public Weapon CurrentWeapon;
+    public Weapon CurrentWeapon;
 
-    public Location CurrentLocation;
+    public static Location CurrentLocation;
 
-    public Player(string name, int currentweapon, Location currentlocation)
+    public Player(string name, Weapon currentweapon, Location currentlocation)
     {
         Name = name;
         CurrentHitPoints = 100;
         MaximumHitPoints = 100;
         CurrentLocation = currentlocation;
-        currentweapon = 0;
+        CurrentWeapon =  currentweapon;
     }
 
     public bool IsAlive()
@@ -33,5 +33,9 @@ public class Player
     {
         CurrentHitPoints -= damage;
     }
+    // public static Location SetLocation(Location newlocation)
+    // {
+    //     return CurrentLocation = newlocation;
+    // }
 
 }

@@ -81,7 +81,7 @@ public class Location
 
             if (destination != null)
             {
-                Player.SetLocation(destination);
+                Player.CurrentLocation = destination;
                 Console.WriteLine($"you moved to: {destination.Location_name}, {destination.Location_description}");
             }
             else
