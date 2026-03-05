@@ -1,13 +1,37 @@
-// this is needed for Location class to work, it is used to set the location of the player when they move
 public class Player
 {
-    public static Location? PlayerLocation;
-    public Player(Location startingLocation)
+    public string Name;
+    public int CurrentHitPoints;
+    public int MaximumHitPoints;
+
+    //public Weapon CurrentWeapon;
+
+    public Location CurrentLocation;
+
+    public Player(string name, int currentweapon, Location currentlocation)
     {
-        PlayerLocation = startingLocation;
+        Name = name;
+        CurrentHitPoints = 100;
+        MaximumHitPoints = 100;
+        CurrentLocation = currentlocation;
+        currentweapon = 0;
     }
-    public static void SetLocation(Location newLocation)
+
+    public bool IsAlive()
     {
-        PlayerLocation = newLocation;
+        if (this.CurrentHitPoints <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
+
+    public void TakeDamage(int damage)
+    {
+        CurrentHitPoints -= damage;
+    }
+
 }
