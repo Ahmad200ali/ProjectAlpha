@@ -1,33 +1,21 @@
 public class Quest
 {
-    public int ID;
-    public string? Name;
-    public string? Description;
-    public bool IsAlive;
-   // public Monster monster;
-   public bool IsCompleted;
-   public int KillCount = 0;
-   public int FightLocationID;
+    public int ID { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
 
-    public Quest(int id,string name,string description,int fightLocationID , Monster monster)
+    public bool IsCompleted { get; set; }
+
+    public Quest(int id, string name, string description)
     {
-        ID =id;
+        ID = id;
         Name = name;
         Description = description;
-        FightLocationID = fightLocationID;
-        IsAlive = false;
-        KillCount = 0;
-           
+        IsCompleted = false;
     }
-    public void StartQuest()
+
+    public void CompleteQuest()
     {
-        
+        IsCompleted = true;
     }
-    public void CompletQuest()
-    {
-        
-    }
-
-
-
 }
