@@ -55,7 +55,8 @@ public class Quest
                 monsterTarget.Name,
                 monsterTarget.Damage,
                 monsterTarget.Max_health,
-                monsterTarget.Max_health
+                monsterTarget.Max_health,
+                player
             );
 
             Console.WriteLine($"\nA wild {enemy.Name} appears!");
