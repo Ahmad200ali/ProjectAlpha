@@ -9,8 +9,10 @@ public class Quest
     public int KillCount = 0;
     public int RequiredKillCount = 3;
     public int FightingLocationID;
+    public Weapon? Reward;
+    public int GoldReward;
     
-    public Quest(int id, string name, string description, int fightingLocationID, Monster monster)
+    public Quest(int id, string name, string description, int fightingLocationID, Monster monster, Weapon? reward = null, int goldReward = 0)
     {
         ID = id;
         Name = name;
@@ -20,6 +22,8 @@ public class Quest
         KillCount = 0;
         FightingLocationID = fightingLocationID;
         monsterTarget = monster;
+        Reward = reward;
+        GoldReward = goldReward;
     }
     
     public void StartQuest(Player player)
@@ -32,24 +36,28 @@ public class Quest
 
         if (IsActive)
         {
-            Console.WriteLine("You are already working on this quest.");
+            ContinueQuest(player);
             return;
         }
 
         IsActive = true;
 
-        // Breng speler naar vechtlocatie
+        // Bring player to fighting location
         Player.CurrentLocation = World.LocationByID(FightingLocationID);
 
         Console.WriteLine($"\n=== QUEST: {Name} ===");
         Console.WriteLine(Description);
         Console.WriteLine($"Your goal: Kill {RequiredKillCount} {monsterTarget.Name}(s)");
-        Console.WriteLine($"Location: {Player.CurrentLocation.Location_name}\n");
+        Console.WriteLine($"Location: {Player.CurrentLocation.Name}\n");
 
-        
+        ContinueQuest(player);
+    }
+    
+    private void ContinueQuest(Player player)
+    {
         while (KillCount < RequiredKillCount && player.IsAlive())
         {
-            // Maak een nieuw monster aan voor elke gevecht (reset health)
+            // Create a new monster for fight
             Monster enemy = new Monster(
                 monsterTarget.ID,
                 monsterTarget.Name,
@@ -60,10 +68,8 @@ public class Quest
             );
 
             Console.WriteLine($"\nA wild {enemy.Name} appears!");
+            bool playerWon = enemy.Battle(player);
             
-           
-            bool playerWon = true;
-
             if (playerWon)
             {
                 KillCount++;
@@ -76,7 +82,7 @@ public class Quest
             }
             else
             {
-                Console.WriteLine("\nQuest paused. You can try again when you're stronger.");
+                Console.WriteLine("\nYou fled from the monster. Quest paused.");
                 break;
             }
         }
@@ -85,7 +91,7 @@ public class Quest
         {
             CompleteQuest(player);
         }
-        else
+        else if (player.IsAlive())
         {
             Console.WriteLine("\nQuest not completed. You need more kills.");
         }
@@ -94,8 +100,23 @@ public class Quest
     public void CompleteQuest(Player player)
     {
         IsCompleted = true;
+        IsActive = false;
+        World.HowManyQuestCompleted.Add(this);
         Console.WriteLine($"\n=== QUEST COMPLETED: {Name} ===");
         Console.WriteLine("Congratulations! You have completed the quest!");
+        
+        // Give rewards
+        if (GoldReward > 0)
+        {
+            player.Gold += GoldReward;
+            Console.WriteLine($"You received {GoldReward} gold!");
+        }
+        
+        if (Reward != null)
+        {
+            Console.WriteLine($"You received a new weapon: {Reward.Name} ({Reward.MaximumDamage} damage)!");
+            player.CurrentWeapon = Reward;
+        }
     }
 }
 

@@ -1,93 +1,63 @@
-using System.Security;
-
 public class Location
 {
     //fields
 
     public int ID;
-    public string Location_name;
-    public string Location_description;
-    public int? X;
-    public int? Y;
+    public string Name;
+    public string Description;
 
     //constructor
-    public Location(int location_id, string location_name, string location_description, int? x, int? y)
+    public Location(int location_id, string location_name, string location_description, int? x = null, int? y = null)
     {
         this.ID = location_id;
-        this.Location_name = location_name;
-        this.Location_description = location_description;
-        this.X = x;
-        this.Y = y;
+        this.Name = location_name;
+        this.Description = location_description;
     }
 
-    // stores what quest is available on current location
     public Quest? QuestAvailableHere { get; set; }
-    // stores what monster is living on current location
 
     public Monster? MonsterLivingHere { get; set; }
-
-    // stores locations around current location
     public Location? LocationToNorth { get; set; }
     public Location? LocationToEast { get; set; }
     public Location? LocationToSouth { get; set; }
     public Location? LocationToWest { get; set; }
 
-    public void MoveLocation()
+    public string Compass()
     {
-        // move location menu
-        Console.WriteLine("Where whould you like to go?");
-        Console.WriteLine($"You are at {Location_name}. From here you can go:");
-
-        // check if location to direction excists
+        string output = "";
         if (LocationToNorth != null)
         {
-            Console.WriteLine($"N. {LocationToNorth.Location_name}");
+            output += $"N - {LocationToNorth.Name}\n";
         }
         if (LocationToEast != null)
         {
-            Console.WriteLine($"E. {LocationToEast.Location_name}");
+            output += $"E - {LocationToEast.Name}\n";
         }
         if (LocationToSouth != null)
         {
-            Console.WriteLine($"S. {LocationToSouth.Location_name}");
+            output += $"S - {LocationToSouth.Name}\n";
         }
         if (LocationToWest != null)
         {
-            Console.WriteLine($"W. {LocationToWest.Location_name}");
+            output += $"W - {LocationToWest.Name}\n";
         }
+        return output;
+    }
 
-        string? movedirection = Console.ReadLine();
-        if (!string.IsNullOrWhiteSpace(movedirection))
+    public Location? GetLocationAt(string? direction)
+    {
+        if (string.IsNullOrWhiteSpace(direction))
+            return null;
+
+        direction = direction.Trim().ToUpper();
+
+        return direction switch
         {
-            movedirection = movedirection.Trim().ToUpper();
-            Location? destination = null;
-
-            if (movedirection == "N" && LocationToNorth != null)
-            {
-                destination = LocationToNorth;
-            }
-            else if (movedirection == "E" && LocationToEast != null)
-            {
-                destination = LocationToEast;
-            }
-            else if (movedirection == "S" && LocationToSouth != null)
-            {
-                destination = LocationToSouth;
-            }
-            else if (movedirection == "W" && LocationToWest != null)
-            {
-                destination = LocationToWest;
-            }
-
-            if (destination != null)
-            {
-                Player.CurrentLocation = destination;
-                Console.WriteLine($"you moved to: {destination.Location_name}, {destination.Location_description}");
-            }
-            else
-            {
-                Console.WriteLine("Invalid direction, try again.");
-            }
-        }
+            "N" => LocationToNorth,
+            "E" => LocationToEast,
+            "S" => LocationToSouth,
+            "W" => LocationToWest,
+            _ => null
+        };
     }
 }
