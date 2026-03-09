@@ -183,7 +183,6 @@
         else
         {
             Console.WriteLine($"{player.Name} died tragically fighting {monster.Name}! GAME OVER.");
-            Environment.Exit(0);
         }
     }
 }
