@@ -38,7 +38,7 @@
                     }
                     else if (ValidInputMovement(dir))
                     {
-                        Console.WriteLine("\nThe infinite void lies to that direction");
+                        Console.WriteLine("\nYou can’t go there. Turn back");
                     }
                     else
                     {
