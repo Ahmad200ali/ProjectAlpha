@@ -3,6 +3,7 @@ public class Player
     public string Name;
     public int CurrentHitPoints;
     public int MaximumHitPoints;
+    public int Gold;
 
     public Weapon CurrentWeapon;
 
@@ -13,8 +14,9 @@ public class Player
         Name = name;
         CurrentHitPoints = 100;
         MaximumHitPoints = 100;
+        Gold = 0;
         CurrentLocation = currentlocation;
-        CurrentWeapon =  currentweapon;
+        CurrentWeapon = currentweapon;
     }
 
     public bool IsAlive()
@@ -33,9 +35,14 @@ public class Player
     {
         CurrentHitPoints -= damage;
     }
-    // public static Location SetLocation(Location newlocation)
-    // {
-    //     return CurrentLocation = newlocation;
-    // }
 
+    public void HealHP(int amount)
+    {
+        CurrentHitPoints += amount;
+        if (CurrentHitPoints > MaximumHitPoints)
+        {
+            CurrentHitPoints = MaximumHitPoints;
+        }
+    }
 }
+
