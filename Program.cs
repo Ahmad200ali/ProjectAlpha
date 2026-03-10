@@ -2,6 +2,7 @@
 {
     public static void Main()
     {
+        Location loc = new Location(1,"aaa", "aa",5,5);
         // Create player
         Player player = new Player("Theoberto the third", World.WeaponByID(World.WEAPON_ID_RUSTY_SWORD), World.LocationByID(World.LOCATION_ID_HOME));
 
@@ -30,20 +31,9 @@
                     Console.Clear();
                     Console.WriteLine("\n" + Player.CurrentLocation);
                     Console.Write("Enter direction (N/E/S/W): ");
-                    // string? dir = Console.ReadLine()?.ToUpper();
-                    // if (TryMoveTo(Player.CurrentLocation.GetLocationAt(dir), player))
-                    // {
-                    //     Console.WriteLine($"\nYou arrive at {Player.CurrentLocation.Name}.\n{Player.CurrentLocation.Description}");
-                    //     HandleMonsterEncounter(player);
-                    // }
-                    // else if (ValidInputMovement(dir))
-                    // {
-                    //     Console.WriteLine("\nYou can’t go there. Turn back");
-                    // }
-                    // else
-                    // {
-                    //     Console.WriteLine("\nInvalid input");
-                    // }
+                    string? dir = Console.ReadLine()?.ToUpper();
+                     loc.MoveLocation(dir);
+
                     break;
 
                 case "Q":
@@ -130,8 +120,8 @@
         Console.WriteLine("One morning, you wake up, pick up your rusty sword,");
         Console.WriteLine("and decide it's time to make your mark on the world.\n");
 
-        Console.WriteLine($"You stand at {Player.CurrentLocation.Name}.");
-        Console.WriteLine($"{Player.CurrentLocation.Description}\n");
+        Console.WriteLine($"You stand at {Player.CurrentLocation.Location_name}.");
+        Console.WriteLine($"{Player.CurrentLocation.Location_description}\n");
 
         Console.WriteLine("Your journey begins here...");
     }

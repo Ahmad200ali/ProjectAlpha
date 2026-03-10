@@ -1,5 +1,3 @@
-using System.Security;
-
 public class Location
 {
     //fields
@@ -20,22 +18,19 @@ public class Location
         this.Y = y;
     }
 
-    // stores what quest is available on current location
     public Quest? QuestAvailableHere { get; set; }
-    // stores what monster is living on current location
 
     public Monster? MonsterLivingHere { get; set; }
 
-    // stores locations around current location
     public Location? LocationToNorth { get; set; }
     public Location? LocationToEast { get; set; }
     public Location? LocationToSouth { get; set; }
     public Location? LocationToWest { get; set; }
 
-    public void MoveLocation()
+    public void MoveLocation(string loc)
     {
-        // move location menu
-        Console.WriteLine("Where whould you like to go?");
+        // Move location menu
+        Console.WriteLine("Where would you like to go?");
         Console.WriteLine($"You are at {Location_name}. From here you can go:");
 
         // check if location to direction excists
