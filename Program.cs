@@ -28,22 +28,22 @@
                 
                 case "M":
                     Console.Clear();
-                    Console.WriteLine("\n" + Player.CurrentLocation.Compass());
+                    Console.WriteLine("\n" + Player.CurrentLocation);
                     Console.Write("Enter direction (N/E/S/W): ");
-                    string? dir = Console.ReadLine()?.ToUpper();
-                    if (TryMoveTo(Player.CurrentLocation.GetLocationAt(dir), player))
-                    {
-                        Console.WriteLine($"\nYou arrive at {Player.CurrentLocation.Name}.\n{Player.CurrentLocation.Description}");
-                        HandleMonsterEncounter(player);
-                    }
-                    else if (ValidInputMovement(dir))
-                    {
-                        Console.WriteLine("\nYou can’t go there. Turn back");
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nInvalid input");
-                    }
+                    // string? dir = Console.ReadLine()?.ToUpper();
+                    // if (TryMoveTo(Player.CurrentLocation.GetLocationAt(dir), player))
+                    // {
+                    //     Console.WriteLine($"\nYou arrive at {Player.CurrentLocation.Name}.\n{Player.CurrentLocation.Description}");
+                    //     HandleMonsterEncounter(player);
+                    // }
+                    // else if (ValidInputMovement(dir))
+                    // {
+                    //     Console.WriteLine("\nYou can’t go there. Turn back");
+                    // }
+                    // else
+                    // {
+                    //     Console.WriteLine("\nInvalid input");
+                    // }
                     break;
 
                 case "Q":
@@ -148,42 +148,5 @@
         return true;
     }
 
-    public static bool ValidInputMovement(string input)
-    {
-        switch (input)
-        {
-            case "N":
-                return true;
-            case "E":
-                return true;
-            case "S":
-                return true;
-            case "W":
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    static void HandleMonsterEncounter(Player player)
-    {
-        Monster monster = Player.CurrentLocation.MonsterLivingHere;
-        if (monster == null) return;
-
-        Console.WriteLine($"A wild {monster.Name} appears!");
-  
-        bool playerWon = monster.monsterAttack();
-        
-        if (playerWon)
-        {
-            Console.WriteLine($"You defeated {monster.Name}!");
-    
-            Player.CurrentLocation.MonsterLivingHere = null;
-        }
-        else
-        {
-            Console.WriteLine($"{player.Name} died tragically fighting {monster.Name}! GAME OVER.");
-        }
-    }
 }
 
