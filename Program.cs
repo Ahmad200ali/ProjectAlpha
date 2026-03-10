@@ -8,7 +8,7 @@
         Intro(player);
         bool game = true;
 
-        HashSet<Location> HowManyLocationsVisited = new HashSet<Location>();
+        List<Location> HowManyLocationsVisited = new List<Location>();
         HowManyLocationsVisited.Add(World.LocationByID(World.LOCATION_ID_HOME));
 
         while (game == true)
@@ -172,12 +172,12 @@
 
         Console.WriteLine($"A wild {monster.Name} appears!");
   
-        bool playerWon = monster.Battle(player);
+        bool playerWon = monster.monsterAttack();
         
         if (playerWon)
         {
             Console.WriteLine($"You defeated {monster.Name}!");
-            // Remove monster from location after defeat
+    
             Player.CurrentLocation.MonsterLivingHere = null;
         }
         else

@@ -44,5 +44,13 @@ public class Player
             CurrentHitPoints = MaximumHitPoints;
         }
     }
+    public void SetLocation(Location newLocation)
+    {
+        CurrentLocation = newLocation;
+        
+    }
+
+
+
 }
 
