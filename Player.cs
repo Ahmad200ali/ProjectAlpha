@@ -49,8 +49,5 @@ public class Player
         CurrentLocation = newLocation;
         
     }
-
-
-
 }
 

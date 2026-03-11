@@ -2,7 +2,6 @@
 {
     public static void Main()
     {
-        Location loc = new Location(1,"aaa", "aa",5,5);
         // Create player
         Player player = new Player("Theoberto the third", World.WeaponByID(World.WEAPON_ID_RUSTY_SWORD), World.LocationByID(World.LOCATION_ID_HOME));
 
@@ -29,11 +28,7 @@
                 
                 case "M":
                     Console.Clear();
-                    Console.WriteLine("\n" + Player.CurrentLocation);
-                    Console.Write("Enter direction (N/E/S/W): ");
-                    string? dir = Console.ReadLine()?.ToUpper();
-                     loc.MoveLocation(dir);
-
+                    Player.CurrentLocation.MoveLocation();
                     break;
 
                 case "Q":
