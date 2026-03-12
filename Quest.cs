@@ -39,18 +39,21 @@ public class Quest
             ContinueQuest(player);
             return;
         }
+        else
+        {
+            IsActive = true;
 
-        IsActive = true;
+            // Bring player to fighting location
+            Player.CurrentLocation = World.LocationByID(FightingLocationID);
 
-        // Bring player to fighting location
-        Player.CurrentLocation = World.LocationByID(FightingLocationID);
+            Console.WriteLine($"\n=== QUEST: {Name} ===");
+            Console.WriteLine(Description);
+            Console.WriteLine($"Your goal: Kill {RequiredKillCount} {monsterTarget.Name}(s)");
+            Console.WriteLine($"Location: {Player.CurrentLocation.Location_name}\n");
 
-        Console.WriteLine($"\n=== QUEST: {Name} ===");
-        Console.WriteLine(Description);
-        Console.WriteLine($"Your goal: Kill {RequiredKillCount} {monsterTarget.Name}(s)");
-        Console.WriteLine($"Location: {Player.CurrentLocation.Location_name}\n");
+            ContinueQuest(player);
+        }
 
-        ContinueQuest(player);
     }
     
     private void ContinueQuest(Player player)
@@ -68,7 +71,7 @@ public class Quest
             );
 
             Console.WriteLine($"\nA wild {enemy.Name} appears!");
-            bool playerWon = true;
+            bool playerWon = enemy.Fight();
             
             if (playerWon)
             {

@@ -27,7 +27,7 @@ public class Location
     public Location? LocationToSouth { get; set; }
     public Location? LocationToWest { get; set; }
 
-    public void MoveLocation(string loc)
+    public void MoveLocation()
     {
         // Move location menu
         Console.WriteLine("Where would you like to go?");

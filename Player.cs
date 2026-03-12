@@ -47,7 +47,6 @@ public class Player
     public static void SetLocation(Location newLocation)
     {
         CurrentLocation = newLocation;
-        
     }
 
 

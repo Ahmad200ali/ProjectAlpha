@@ -16,7 +16,7 @@ public class Monster
        this.player = player;
     }
 
-    public void fight(){
+    public bool Fight(){
         Console.WriteLine($"You are fighting a {Name}. It has {Current_health} health points");
         Console.WriteLine("Pick an option:");
         Console.WriteLine("(1) attack");
@@ -26,11 +26,15 @@ public class Monster
         if(choice is "1" || choice is "attack")
         {
             playerAttack();
+            return true;
         }
         else if(choice is "2" || choice is "flee")
         {
             flee();
+            return false;
         }
+        Console.WriteLine("You didn't pick a correct option!");
+        return Fight();
     }
 
     public void flee()
@@ -42,7 +46,7 @@ public class Monster
     {
         int weapon_damage = player.CurrentWeapon.MaximumDamage;
         Current_health -= weapon_damage;
-        Console.WriteLine($"The monster now has {Current_health}");
+        Console.WriteLine($"The monster now has {Current_health} health points");
         if(Current_health < 1)
         {
             death();
@@ -65,8 +69,8 @@ public class Monster
         
         if (player.IsAlive())
         {    
-            Console.WriteLine($"The monster hits you and deals {Damage} damage! You now have {player.CurrentHitPoints} health.");
-            fight();        
+            Console.WriteLine($"The monster hits you and deals {Damage} damage! You now have {player.CurrentHitPoints} health points.");
+            Fight();        
         }
         else
         {
